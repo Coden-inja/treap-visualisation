@@ -2,81 +2,164 @@
 import { CodeExample } from '@/components/shared/CodeSnippets';
 
 export const treapCodeExamples: CodeExample[] = [
-  {
-    language: 'TypeScript',
-    icon: '📘',
-    code: `class TreapNode {
-  key: number;
-  priority: number;
-  left: TreapNode | null = null;
-  right: TreapNode | null = null;
+//   {
+//     language: 'TypeScript',
+//     icon: '📘',
+//     code: `class TreapNode {
+//   key: number;
+//   priority: number;
+//   left: TreapNode | null = null;
+//   right: TreapNode | null = null;
 
-  constructor(key: number) {
-    this.key = key;
-    this.priority = Math.random() * 100;
-  }
+//   constructor(key: number) {
+//     this.key = key;
+//     this.priority = Math.random() * 100;
+//   }
+// }
+
+// class Treap {
+//   root: TreapNode | null = null;
+
+//   // Right rotation
+//   private rotateRight(node: TreapNode): TreapNode {
+//     const left = node.left!;
+//     node.left = left.right;
+//     left.right = node;
+//     return left;
+//   }
+
+//   // Left rotation
+//   private rotateLeft(node: TreapNode): TreapNode {
+//     const right = node.right!;
+//     node.right = right.left;
+//     right.left = node;
+//     return right;
+//   }
+
+//   // Insert with rotations to maintain heap property
+//   private insertNode(node: TreapNode | null, key: number): TreapNode {
+//     if (!node) return new TreapNode(key);
+
+//     if (key < node.key) {
+//       node.left = this.insertNode(node.left, key);
+//       // Fix heap property
+//       if (node.left.priority > node.priority) {
+//         node = this.rotateRight(node);
+//       }
+//     } else {
+//       node.right = this.insertNode(node.right, key);
+//       // Fix heap property
+//       if (node.right.priority > node.priority) {
+//         node = this.rotateLeft(node);
+//       }
+//     }
+//     return node;
+//   }
+
+//   insert(key: number): void {
+//     this.root = this.insertNode(this.root, key);
+//   }
+
+//   // Search (standard BST search)
+//   search(key: number): TreapNode | null {
+//     let current = this.root;
+//     while (current) {
+//       if (key === current.key) return current;
+//       current = key < current.key ? current.left : current.right;
+//     }
+//     return null;
+//   }
+// }
+
+// // Usage
+// const treap = new Treap();
+// treap.insert(50);
+// treap.insert(30);
+// treap.insert(70);
+// console.log(treap.search(30)); // Found!`
+//   },
+{
+    language: 'C', // <--- Changed
+    icon: '⚙️', // <--- Changed (optional)
+    code: `#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+typedef struct TreapNode {
+    int key;
+    int priority;
+    struct TreapNode *left;
+    struct TreapNode *right;
+} TreapNode;
+
+// Function to create a new node
+TreapNode* createNode(int key) {
+    TreapNode* node = (TreapNode*)malloc(sizeof(TreapNode));
+    node->key = key;
+    node->priority = rand() % 100;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
 }
 
-class Treap {
-  root: TreapNode | null = null;
-
-  // Right rotation
-  private rotateRight(node: TreapNode): TreapNode {
-    const left = node.left!;
-    node.left = left.right;
-    left.right = node;
+// Right rotation
+TreapNode* rotateRight(TreapNode* node) {
+    TreapNode* left = node->left;
+    node->left = left->right;
+    left->right = node;
     return left;
-  }
+}
 
-  // Left rotation
-  private rotateLeft(node: TreapNode): TreapNode {
-    const right = node.right!;
-    node.right = right.left;
-    right.left = node;
+// Left rotation
+TreapNode* rotateLeft(TreapNode* node) {
+    TreapNode* right = node->right;
+    node->right = right->left;
+    right->left = node;
     return right;
-  }
+}
 
-  // Insert with rotations to maintain heap property
-  private insertNode(node: TreapNode | null, key: number): TreapNode {
-    if (!node) return new TreapNode(key);
+// Insert with rotations
+TreapNode* insertNode(TreapNode* node, int key) {
+    if (!node) return createNode(key);
 
-    if (key < node.key) {
-      node.left = this.insertNode(node.left, key);
-      // Fix heap property
-      if (node.left.priority > node.priority) {
-        node = this.rotateRight(node);
-      }
+    if (key < node->key) {
+        node->left = insertNode(node->left, key);
+        // Fix heap property
+        if (node->left->priority > node->priority)
+            node = rotateRight(node);
     } else {
-      node.right = this.insertNode(node.right, key);
-      // Fix heap property
-      if (node.right.priority > node.priority) {
-        node = this.rotateLeft(node);
-      }
+        node->right = insertNode(node->right, key);
+        // Fix heap property
+        if (node->right->priority > node->priority)
+            node = rotateLeft(node);
     }
     return node;
-  }
-
-  insert(key: number): void {
-    this.root = this.insertNode(this.root, key);
-  }
-
-  // Search (standard BST search)
-  search(key: number): TreapNode | null {
-    let current = this.root;
-    while (current) {
-      if (key === current.key) return current;
-      current = key < current.key ? current.left : current.right;
-    }
-    return null;
-  }
 }
 
-// Usage
-const treap = new Treap();
-treap.insert(50);
-treap.insert(30);
-treap.insert(70);
-console.log(treap.search(30)); // Found!`
+// Search (standard BST search)
+TreapNode* search(TreapNode* root, int key) {
+    TreapNode* current = root;
+    while (current) {
+        if (key == current->key) return current;
+        current = key < current->key ? current->left : current->right;
+    }
+    return NULL;
+}
+
+int main() {
+    srand(time(NULL));
+    TreapNode* root = NULL;
+
+    root = insertNode(root, 50);
+    root = insertNode(root, 30);
+    root = insertNode(root, 70);
+
+    TreapNode* found = search(root, 30);
+    printf(found ? "Found!\\n" : "Not found\\n");
+
+    // Remember to free memory in a real application
+    return 0;
+}`
   },
   {
     language: 'Python',
