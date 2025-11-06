@@ -1,3 +1,4 @@
+//codeExamples.ts
 import { CodeExample } from '@/components/shared/CodeSnippets';
 
 export const treapCodeExamples: CodeExample[] = [
@@ -224,80 +225,80 @@ int main() {
     return 0;
 }`
   },
-  {
-    language: 'Java',
-    icon: '☕',
-    code: `import java.util.Random;
+//   {
+//     language: 'Java',
+//     icon: '☕',
+//     code: `import java.util.Random;
 
-class TreapNode {
-    int key;
-    int priority;
-    TreapNode left, right;
+// class TreapNode {
+//     int key;
+//     int priority;
+//     TreapNode left, right;
     
-    public TreapNode(int key) {
-        this.key = key;
-        this.priority = new Random().nextInt(100);
-        this.left = null;
-        this.right = null;
-    }
-}
+//     public TreapNode(int key) {
+//         this.key = key;
+//         this.priority = new Random().nextInt(100);
+//         this.left = null;
+//         this.right = null;
+//     }
+// }
 
-public class Treap {
-    private TreapNode root;
+// public class Treap {
+//     private TreapNode root;
     
-    private TreapNode rotateRight(TreapNode node) {
-        TreapNode left = node.left;
-        node.left = left.right;
-        left.right = node;
-        return left;
-    }
+//     private TreapNode rotateRight(TreapNode node) {
+//         TreapNode left = node.left;
+//         node.left = left.right;
+//         left.right = node;
+//         return left;
+//     }
     
-    private TreapNode rotateLeft(TreapNode node) {
-        TreapNode right = node.right;
-        node.right = right.left;
-        right.left = node;
-        return right;
-    }
+//     private TreapNode rotateLeft(TreapNode node) {
+//         TreapNode right = node.right;
+//         node.right = right.left;
+//         right.left = node;
+//         return right;
+//     }
     
-    private TreapNode insertNode(TreapNode node, int key) {
-        if (node == null) return new TreapNode(key);
+//     private TreapNode insertNode(TreapNode node, int key) {
+//         if (node == null) return new TreapNode(key);
         
-        if (key < node.key) {
-            node.left = insertNode(node.left, key);
-            // Fix heap property
-            if (node.left.priority > node.priority)
-                node = rotateRight(node);
-        } else {
-            node.right = insertNode(node.right, key);
-            // Fix heap property
-            if (node.right.priority > node.priority)
-                node = rotateLeft(node);
-        }
-        return node;
-    }
+//         if (key < node.key) {
+//             node.left = insertNode(node.left, key);
+//             // Fix heap property
+//             if (node.left.priority > node.priority)
+//                 node = rotateRight(node);
+//         } else {
+//             node.right = insertNode(node.right, key);
+//             // Fix heap property
+//             if (node.right.priority > node.priority)
+//                 node = rotateLeft(node);
+//         }
+//         return node;
+//     }
     
-    public void insert(int key) {
-        root = insertNode(root, key);
-    }
+//     public void insert(int key) {
+//         root = insertNode(root, key);
+//     }
     
-    public TreapNode search(int key) {
-        TreapNode current = root;
-        while (current != null) {
-            if (key == current.key) return current;
-            current = key < current.key ? current.left : current.right;
-        }
-        return null;
-    }
+//     public TreapNode search(int key) {
+//         TreapNode current = root;
+//         while (current != null) {
+//             if (key == current.key) return current;
+//             current = key < current.key ? current.left : current.right;
+//         }
+//         return null;
+//     }
     
-    public static void main(String[] args) {
-        Treap treap = new Treap();
-        treap.insert(50);
-        treap.insert(30);
-        treap.insert(70);
+//     public static void main(String[] args) {
+//         Treap treap = new Treap();
+//         treap.insert(50);
+//         treap.insert(30);
+//         treap.insert(70);
         
-        TreapNode found = treap.search(30);
-        System.out.println(found != null ? "Found!" : "Not found");
-    }
-}`
-  }
+//         TreapNode found = treap.search(30);
+//         System.out.println(found != null ? "Found!" : "Not found");
+//     }
+// }`
+//   }
 ];

@@ -37,7 +37,7 @@ export const CodeSnippets = ({ title, description, examples }: CodeSnippetsProps
         <CardDescription>{description}</CardDescription>
       </CardHeader>
 
-      <CardContent className="flex-1 flex flex-col overflow-hidden">
+      <CardContent className="flex-1 flex flex-col">
         <Tabs defaultValue={examples[0]?.language} className="flex-1 flex flex-col">
           <TabsList className="glass w-full justify-start">
             {examples.map((example) => (
@@ -51,7 +51,7 @@ export const CodeSnippets = ({ title, description, examples }: CodeSnippetsProps
             <TabsContent 
               key={example.language} 
               value={example.language}
-              className="flex-1 flex flex-col mt-4 overflow-hidden"
+              className="flex-1 flex flex-col mt-4"
             >
               <div className="relative flex-1 flex flex-col">
                 <Button
